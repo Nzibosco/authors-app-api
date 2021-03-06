@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bosco.demos.dtos.AuthorDTO;
 import com.bosco.demos.entities.Author;
 import com.bosco.demos.repository.AuthorRepo;
 
@@ -30,6 +31,6 @@ public class AuthorService {
 		
 		return repo.save(author);
 	}
-
+	
 	
 }
