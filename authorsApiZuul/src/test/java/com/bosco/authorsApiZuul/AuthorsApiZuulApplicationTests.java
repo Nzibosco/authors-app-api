@@ -1,10 +1,10 @@
-package com.bosco.ApiConfig;
+package com.bosco.authorsApiZuul;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApiConfigApplicationTests {
+class AuthorsApiZuulApplicationTests {
 
 	@Test
 	void contextLoads() {
