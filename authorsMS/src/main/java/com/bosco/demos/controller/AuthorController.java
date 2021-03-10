@@ -1,11 +1,13 @@
 package com.bosco.demos.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +30,7 @@ public class AuthorController {
 	AuthorService service;
 	
 	@Autowired
-	ServiceInstance instances;
+	DiscoveryClient client;
 	
 	public static final Logger LOGGER = LoggerFactory.getLogger(AuthorController.class);
 	
@@ -61,12 +63,19 @@ public class AuthorController {
 		
 		AuthorDTO dto = null;
 		Author author= null;
-		String quoteMsUrl = "http://localhost:5000/quotes/author/?id="+id;
+		//String quoteMsUrl = "http://localhost:5000/quotes/author/?id="+id;
+		
+		//Using Eureka instances
+		List<ServiceInstance> instances = client.getInstances("QUOTESMS");
+		String quoteMsUrl = instances.get(0).getUri()+"/quotes/author/?id="+id;
+		LOGGER.info("===== Quotes URI= "+quoteMsUrl);
+		
 		
 		if(getById(id) != null)
 			author = getById(id).get();
 		
 		ResponseEntity<QuoteDTO[]> quotes = new RestTemplate().getForEntity(quoteMsUrl, QuoteDTO[].class);
+		
 		
 		LOGGER.info("==============RETRIEVING QUOTE WITH REST TEMPLATE============");
 		LOGGER.info(quotes.toString());
