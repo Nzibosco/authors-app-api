@@ -17,13 +17,13 @@ public class LikeDTO {
 	
 	
 	public static Like toLike(LikeDTO likeDto) {
-		Like l = new Like();
+		Like like = new Like();
 		
-		l.setAuthorId(likeDto.getAuthorId());
-		l.setQuoteId(likeDto.getQuoteId());
-		l.setDatePosted(LocalDate.now());
+		like.setAuthorId(likeDto.getAuthorId());
+		like.setQuoteId(likeDto.getQuoteId());
+		like.setDatePosted(LocalDate.now());
 		
-		return l;
+		return like;
 	}
 
 }
